@@ -11,7 +11,7 @@ include "includes/top_html.php";
 
 switch($_GET['do']) {
     case 'login':
-        echo "FORMULAIRE DE LOGIN";
+        echo displayLoginForm();
         break;
     default:
         echo 'DASHBOARD';
