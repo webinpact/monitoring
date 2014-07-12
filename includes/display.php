@@ -33,7 +33,9 @@ function getButton ($text, $link="", $js="") {
 
 function getDashBoard() {
 
-    return '
+    $hosts = getAllHosts();
+
+    $return = '
     <div class="content">
         <div class="mainMenu">
             <ul>
@@ -44,14 +46,21 @@ function getDashBoard() {
             </ul>
         </div>
         <div class="sideMenu">
-            <h4>Hosts</h4>
-            <a href="">Host 1</a><br />
-            <a href="">Host 1</a><br />
+            <h4>Hosts</h4>';
+    if(in_array($_GET['do'],array()))
+    foreach($hosts as $key=>$host) {
+           $return .= '
+           <a href="index.php?do=graphs&host='.$host['host_id'].'">'.$host['host_name'].'</a><br />';
+    }
+
+    $return .= '
         </div>
         <div class="mainContent">
             <h4>Graphs</h4>
             bla bla
         </div>
     </div>';
+
+    return $return;
 
 }

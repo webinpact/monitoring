@@ -1,5 +1,6 @@
 <?php
-define(DB_HOST,'localhost'):
-define(DB_LOGIN,'monitoring');
-define(DB_PASSWORD,'VcYe5Ys9J6N4N3zw');
+define(DB_HOST,'localhost');
+define(DB_LOGIN,'root');
+define(DB_PASSWORD,'Lo4rNuu');
+define(DB_NAME,'monitoring');
 ?>
