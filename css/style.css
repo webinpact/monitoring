@@ -1,6 +1,7 @@
 body {
 
     background: url("../images/pattern1.png");
+    font-family: 'Droid Sans', sans-serif;
 
 }
 
@@ -97,4 +98,106 @@ BUTTONS
 .css_btn_class:active {
       position:relative;
       top:1px;
+}
+
+/*
+DASHBOARD
+*/
+
+.content {
+    width:1000px;
+    min-height:1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mainMenu {
+    width: 100%;
+    height: 30px;
+    background: red;
+    text-align: center;
+    margin-bottom: 10px;
+
+
+    background: darkgrey;
+    font-weight: bold;
+    color: gray;
+    font-family: 'Droid Sans', sans-serif;
+
+    border-bottom: 1px solid #CDCDCD;
+    box-shadow: 0 1px 0 #FFFFFF;
+    -moz-box-shadow: 0 1px 0 #FFFFFF;
+    -webkit-box-shadow: 0 1px 0 #FFFFFF;
+    position: relative;
+    text-shadow: 0 1px #FFFFFF;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    background: rgb(248,248,248);
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, rgba(248,248,248,1) 0%, rgba(232,232,232,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(248,248,248,1)), color-stop(100%,rgba(232,232,232,1)));
+    background: -webkit-linear-gradient(top, rgba(248,248,248,1) 0%,rgba(232,232,232,1) 100%);
+    background: -o-linear-gradient(top, rgba(248,248,248,1) 0%,rgba(232,232,232,1) 100%);
+    background: -ms-linear-gradient(top, rgba(248,248,248,1) 0%,rgba(232,232,232,1) 100%);
+    background: linear-gradient(to bottom, rgba(248,248,248,1) 0%,rgba(232,232,232,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#e8e8e8',GradientType=0 );
+}
+
+.mainMenu ul {
+
+}
+
+.mainMenu ul li {
+    display: inline;
+    padding-right: 50px;
+    vertical-align: middle;
+}
+
+.mainMenu ul li a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.mainMenu ul li a:hover {
+    text-decoration: underline;
+    color: inherit;
+}
+
+.sideMenu {
+    width: 150px;
+    min-height: 100px;
+    background: #f6f6f6;
+    float: left;
+}
+
+.sideMenu h4 {
+    background: grey;
+    color: white;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.sideMenu a {
+    color: gray;
+    text-decoration: none;
+}
+
+.sideMenu a:hover {
+    text-decoration: underline;
+}
+
+.mainContent {
+    width: 840px;
+    min-height: 100px;
+    background: #f6f6f6;
+    float: left;
+    margin-left: 10px;
+}
+
+.mainContent h4 {
+    background: forestgreen;
+    color: white;
+    margin: 0;
+    margin-bottom: 10px;
 }

@@ -8,13 +8,15 @@
 include "includes/top.php";
 include "includes/top_html.php";
 
+$do = $_POST['do'];
+if($_GET['do']) $do=$_GET['do'];
 
-switch($_GET['do']) {
+switch($do) {
     case 'login':
-        echo displayLoginForm();
+        echo getLoginForm();
         break;
     default:
-        echo 'DASHBOARD';
+        echo getDashBoard();
         break;
 }
 
