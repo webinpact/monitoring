@@ -43,24 +43,177 @@ function getDashBoard() {
                 <li><a href="index.php?do=hosts">Hosts</a></li>
                 <li><a href="index.php?do=alerts">Alerts</a></li>
                 <li><a href="index.php?do=settings">Settings</a></li>
+                <li><a href="index.php?do=logout">Logout</a></li>
             </ul>
         </div>
         <div class="sideMenu">
             <h4>Hosts</h4>';
-    if(in_array($_GET['do'],array()))
-    foreach($hosts as $key=>$host) {
-           $return .= '
-           <a href="index.php?do=graphs&host='.$host['host_id'].'">'.$host['host_name'].'</a><br />';
+    if(in_array($_GET['do'],array("graphs","alerts","hosts"))) {
+        foreach($hosts as $key=>$host) {
+               $return .= '
+               <a href="index.php?do='.$_GET['do'].'&host='.$host['host_id'].'">'.$host['host_name'].'</a><br />';
+        }
     }
 
     $return .= '
         </div>
         <div class="mainContent">
             <h4>Graphs</h4>
-            bla bla
+            '.getDashBoardContent().'
         </div>
     </div>';
 
     return $return;
+
+}
+
+function getDashBoardContent() {
+
+    $return = "";
+
+    //which host to display ?
+    if($_GET['host']) {
+        $host = $_GET['host'];
+    }
+    else {
+        $hosts = getAllHosts();
+        $host = $hosts[0];
+    }
+
+    switch($_GET['do']) {
+        case 'alerts':
+            break;
+        case 'hosts':
+            $host_infos = getHostInfos($host);
+            $return .= '<h1>'.$host_infos['infos']['host_name'].'</h1>';
+            $return .= '<h2>Sensors :</h2>';
+            if(count($host_infos['sensors'])) {
+
+                $return .= '
+                <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Value</th>
+                </tr>';
+
+                foreach($host_infos['sensors'] as $key=>$sensor) {
+
+                    $return .='
+                <tr>
+                    <td>'.$sensor['sensor_name'].'</td>
+                    <td>'.$sensor['sensor_type'].'</td>
+                    <td>'.$sensor['sensor_value'].'</td>
+                </tr>';
+
+                }
+
+                $return .= '
+                </table>
+                <br />';
+
+            }
+            break;
+        case 'settings':
+            break;
+        case 'graphs':
+        default:
+            $host_infos = getHostInfos($host);
+            $return .= '<h1>'.$host_infos['infos']['host_name'].'</h1>';
+            //Todo: Make it dynamic
+            $start = date("Y-m-d H:i:s",mktime(date("h"),date("i"),date("s"),date("m"),date("d")-2,date("Y")));
+            $stop = date("Y-m-d H:i:s");
+
+            foreach($host_infos['sensors'] as $key=>$sensor) {
+                $return .= '<div id="sensor'.$sensor['sensor_id'].'"></div>';
+                $return .= getGraph($sensor['sensor_id'],$start,$stop,"sensor".$sensor['sensor_id'],$sensor['sensor_name']);
+            }
+            break;
+    }
+
+    return $return;
+}
+
+//return javascript code to draw a graph
+function getGraph($sensor_id,$start,$stop,$div,$name) {
+
+    $query = sql("SELECT * FROM poller_data
+    WHERE sensor_id='".$sensor_id."'
+    AND log_date BETWEEN '".$start."' AND '".$stop."'
+    ");
+    echo "SELECT * FROM poller_data
+    WHERE sensor_id='".$sensor_id."'
+    AND log_date BETWEEN '".$start."' AND '".$stop."'
+    ";
+    $data = "";
+    while($array = mysql_fetch_array($query)) {
+        $data.="
+[".strtotime($array['log_date'])."000, ".$array['value']."   ],";
+    }
+
+
+
+    $return .= "
+    <script>
+    $(function () {
+        $('#".$div."').highcharts({
+            chart: {
+                zoomType: 'x'
+            },
+            title: {
+                text: '".$name."'
+            },
+            xAxis: {
+                type: 'datetime',
+            },
+            yAxis: {
+                title: {
+                    text: '".$name."'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, '#FF0000'],
+                            [1, '#FFFF00']
+                        ]
+                    },
+                    marker: {
+                        radius: 2
+                    },
+                    lineWidth: 1,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+
+            series: [{
+                type: 'area',
+                name: '".$name."',
+                data: [
+                    ".$data."
+                ]
+            }]
+        });
+    });
+    </script>";
+
+
+    return $return;
+
 
 }

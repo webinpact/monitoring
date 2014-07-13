@@ -193,6 +193,18 @@ DASHBOARD
     background: #f6f6f6;
     float: left;
     margin-left: 10px;
+    color:slategrey;
+}
+
+.mainContent h1 {
+    color: grey;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.mainContent h2 {
+    font-weight: bold;
+    font-size: 14px;
 }
 
 .mainContent h4 {
@@ -200,4 +212,26 @@ DASHBOARD
     color: white;
     margin: 0;
     margin-bottom: 10px;
+}
+
+.mainContent table {
+    border-collapse: collapse;
+    border: 1px solid grey;
+    width: 80%;
+    margin-left: 20px;
+}
+
+.mainContent tr {
+    border: 1px solid grey;
+}
+
+.mainContent th {
+    font-weight: bold;
+    border: 1px solid grey;
+    text-align: center;
+}
+
+.mainContent td {
+    border: 1px solid grey;
+    text-align: center;
 }
