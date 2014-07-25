@@ -103,6 +103,16 @@ BUTTONS
 /*
 DASHBOARD
 */
+.mainContent h4 {
+    background: forestgreen;
+    color: white;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.mainContent h4 .graphs {
+    background: red;
+}
 
 .content {
     width:1000px;
@@ -205,13 +215,6 @@ DASHBOARD
 .mainContent h2 {
     font-weight: bold;
     font-size: 14px;
-}
-
-.mainContent h4 {
-    background: forestgreen;
-    color: white;
-    margin: 0;
-    margin-bottom: 10px;
 }
 
 .mainContent table {
