@@ -248,3 +248,11 @@ DASHBOARD
     border: 1px solid grey;
     text-align: center;
 }
+
+.add_sensor {
+    width: 400px;
+}
+
+.add_sensor h6 {
+    font-size: 12px;
+}
