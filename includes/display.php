@@ -58,7 +58,7 @@ function getDashBoard() {
     $return .= '
         </div>
         <div class="mainContent">
-            <h4>Graphs</h4>
+            <h4 class="'.$_GET['do'].'">'.ucfirst($_GET['do']).'</h4>
             '.getDashBoardContent().'
         </div>
     </div>';
