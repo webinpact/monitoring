@@ -141,10 +141,10 @@ function getGraph($sensor_id,$start,$stop,$div,$name) {
     WHERE sensor_id='".$sensor_id."'
     AND log_date BETWEEN '".$start."' AND '".$stop."'
     ");
-    echo "SELECT * FROM poller_data
+    /*echo "SELECT * FROM poller_data
     WHERE sensor_id='".$sensor_id."'
     AND log_date BETWEEN '".$start."' AND '".$stop."'
-    ";
+    ";*/
     $data = "";
     while($array = mysql_fetch_array($query)) {
         $data.="
