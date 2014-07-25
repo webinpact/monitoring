@@ -84,35 +84,65 @@ function getDashBoardContent() {
         case 'alerts':
             break;
         case 'hosts':
-            $host_infos = getHostInfos($host);
-            $return .= '<h1>'.$host_infos['infos']['host_name'].'</h1>';
-            $return .= '<h2>Sensors :</h2>';
-            if(count($host_infos['sensors'])) {
+            $hosts = $hosts = getAllHosts();
+            foreach($hosts as $host) {
+                $host_infos = getHostInfos($host);
+                $return .= '<h1>'.$host_infos['infos']['host_name'].'</h1>';
+                $return .= '<h2>Sensors :</h2>';
+                if(count($host_infos['sensors'])) {
 
-                $return .= '
-                <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Value</th>
-                </tr>';
+                    $return .= '
+                    <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Value</th>
+                    </tr>';
 
-                foreach($host_infos['sensors'] as $key=>$sensor) {
+                    foreach($host_infos['sensors'] as $key=>$sensor) {
 
-                    $return .='
-                <tr>
-                    <td>'.$sensor['sensor_name'].'</td>
-                    <td>'.$sensor['sensor_type'].'</td>
-                    <td>'.$sensor['sensor_value'].'</td>
-                </tr>';
+                        $return .='
+                    <tr>
+                        <td>'.$sensor['sensor_name'].'</td>
+                        <td>'.$sensor['sensor_type'].'</td>
+                        <td>'.$sensor['sensor_value'].'</td>
+                    </tr>';
+
+                    }
+
+                    $return .= '
+                    </table>
+                    <br />';
 
                 }
-
+                //TODO: ADD A SENSOR
                 $return .= '
-                </table>
-                <br />';
-
+                <br />
+                <div class="add_sensor">
+                    <h6>Add a new sensor :</h6>
+                    <table width="300px">
+                    <tr>
+                        <td>Name :</td>
+                        <td><input type="text" name="name"></td>
+                    </tr>
+                    <tr>
+                        <td>Type :</td>
+                        <td><select></select></td>
+                    </tr>
+                    <tr>
+                        <td>Value :</td>
+                        <td><input type="text" name="value"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" value="Add"></td>
+                    </tr>
+                    </table>
+                </div>
+                <hr>
+                ';
             }
+            //TODO: ADD AN HOST
+
             break;
         case 'settings':
             break;
