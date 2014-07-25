@@ -112,6 +112,7 @@ DASHBOARD
 
 .mainContent h4.graphs {
     background: #F7D358;
+    color: #BDBDBD;
 }
 .mainContent h4.hosts {
     background: #58ACFA;
@@ -121,6 +122,7 @@ DASHBOARD
 }
 .mainContent h4.settings {
     background: #F4FA58;
+    color: #BDBDBD;
 }
 
 
