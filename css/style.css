@@ -110,9 +110,19 @@ DASHBOARD
     margin-bottom: 10px;
 }
 
-.mainContent h4 .graphs {
-    background: red;
+.mainContent h4.graphs {
+    background: #F7D358;
 }
+.mainContent h4.hosts {
+    background: #58ACFA;
+}
+.mainContent h4.alerts {
+    background: #FA5858;
+}
+.mainContent h4.settings {
+    background: #F4FA58;
+}
+
 
 .content {
     width:1000px;
