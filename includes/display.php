@@ -32,7 +32,8 @@ function getButton ($text, $link="", $js="") {
 }
 
 function getDashBoard() {
-
+	global $action_result;
+	
     $hosts = getAllHosts();
 
     $return = '
@@ -59,6 +60,7 @@ function getDashBoard() {
         </div>
         <div class="mainContent">
             <h4 class="'.$_GET['do'].'">'.ucfirst($_GET['do']).'</h4>
+			'.$action_result.'
             '.getDashBoardContent().'
         </div>
     </div>';
@@ -84,64 +86,64 @@ function getDashBoardContent() {
         case 'alerts':
             break;
         case 'hosts':
-            $hosts = $hosts = getAllHosts();
-            foreach($hosts as $host) {
-                $host_infos = getHostInfos($host);
-                $return .= '<h1>'.$host_infos['infos']['host_name'].'</h1>';
-                $return .= '<h2>Sensors :</h2>';
-                if(count($host_infos['sensors'])) {
+			$host_infos = getHostInfos($host);
+			$return .= '<h1>'.$host_infos['infos']['host_name'].'</h1>';
+			$return .= '<h2>Sensors :</h2>';
+			if(count($host_infos['sensors'])) {
 
-                    $return .= '
-                    <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Value</th>
-                    </tr>';
+				$return .= '
+				<table>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Value</th>
+				</tr>';
 
-                    foreach($host_infos['sensors'] as $key=>$sensor) {
+				foreach($host_infos['sensors'] as $key=>$sensor) {
 
-                        $return .='
-                    <tr>
-                        <td>'.$sensor['sensor_name'].'</td>
-                        <td>'.$sensor['sensor_type'].'</td>
-                        <td>'.$sensor['sensor_value'].'</td>
-                    </tr>';
+					$return .='
+				<tr>
+					<td>'.$sensor['sensor_name'].'</td>
+					<td>'.$sensor['sensor_type'].'</td>
+					<td>'.$sensor['sensor_value'].'</td>
+				</tr>';
 
-                    }
+				}
 
-                    $return .= '
-                    </table>
-                    <br />';
+				$return .= '
+				</table>
+				<br />';
 
-                }
-                //TODO: ADD A SENSOR
-                $return .= '
-                <br />
-                <div class="add_sensor">
-                    <h6>Add a new sensor :</h6>
-                    <table width="300px">
-                    <tr>
-                        <td>Name :</td>
-                        <td><input type="text" name="name"></td>
-                    </tr>
-                    <tr>
-                        <td>Type :</td>
-                        <td><select></select></td>
-                    </tr>
-                    <tr>
-                        <td>Value :</td>
-                        <td><input type="text" name="value"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><input type="submit" value="Add"></td>
-                    </tr>
-                    </table>
-                </div>
-                <hr>
-                ';
-            }
-            //TODO: ADD AN HOST
+			}
+			//TODO: ADD A SENSOR
+			$return .= '
+			<br />
+			<div class="add_sensor">
+				<h6>Add a new sensor :</h6>
+				<form method="post" action="'.$_SERVER['REQUEST_URI'].'">
+					<table width="300px">
+					<tr>
+						<td>Name :</td>
+						<td><input type="text" name="name"></td>
+					</tr>
+					<tr>
+						<td>Type :</td>
+						<td><select name="type">'.getSensorTypesSelect().'</select></td>
+					</tr>
+					<tr>
+						<td>OID :</td>
+						<td><input type="text" name="value"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" value="Add" ></td>
+					</tr>
+					</table>
+					<input type="hidden" name="action" value="add_sensor">
+					<input type="hidden" name="host_id" value="'.$host_infos['infos']['host_id'].'">
+				</form>
+			</div>
+			';
+            
 
             break;
         case 'settings':
@@ -246,4 +248,16 @@ function getGraph($sensor_id,$start,$stop,$div,$name) {
     return $return;
 
 
+}
+
+function getSensorTypesSelect() {
+	$return = "";
+
+	$query = sql("SELECT * FROM sensors");
+	while($array=mysql_fetch_array($query)) {
+		$return .= '
+		<option>'.$array['sensor_type'].'</option>';
+		
+	}
+	return $return;
 }
