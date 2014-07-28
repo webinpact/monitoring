@@ -207,10 +207,14 @@ function getGraph($sensor_id,$start,$stop,$div,$name) {
     AND log_date BETWEEN '".$start."' AND '".$stop."'
     ";*/
     $data = "";
+    $max = 0;
     while($array = mysql_fetch_array($query)) {
         $data.="
 [".strtotime($array['log_date'])."000, ".$array['value']."   ],";
+        $max = max($max,$array['value']);
     }
+
+    $max = $max+0.10*$max;
 
 
 
@@ -231,7 +235,7 @@ function getGraph($sensor_id,$start,$stop,$div,$name) {
                 title: {
                     text: '".$name."'
                 },
-                max: 10
+                max: '".$max."'
             },
             legend: {
                 enabled: false
