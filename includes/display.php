@@ -230,7 +230,8 @@ function getGraph($sensor_id,$start,$stop,$div,$name) {
             yAxis: {
                 title: {
                     text: '".$name."'
-                }
+                },
+                max: 10
             },
             legend: {
                 enabled: false
