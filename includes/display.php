@@ -186,7 +186,7 @@ function getDashBoardContent() {
             $stop = date("Y-m-d H:i:s");
 
             foreach($host_infos['sensors'] as $key=>$sensor) {
-                $return .= '<div id="sensor'.$sensor['sensor_id'].'"></div>';
+                $return .= '<div id="sensor'.$sensor['sensor_id'].'"></div><br />';
                 $return .= getGraph($sensor['sensor_id'],$start,$stop,"sensor".$sensor['sensor_id'],$sensor['sensor_name']);
             }
             break;
