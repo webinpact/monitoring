@@ -221,8 +221,8 @@ function getGraph($sensor_id,$start,$stop,$div,$name) {
     echo $max."/".$min."<br/>";
 
 
-    $max = $max+0.05*$max;
-    $min = $min-0.05*$min;
+    $max = $max+0.10*$max;
+    $min = $min-0.10*$min;
 
 
 
