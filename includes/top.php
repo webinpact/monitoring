@@ -35,6 +35,17 @@ if($_POST['action']=="add_sensor") {
 	}
 		
 }
+elseif($_POST['action']=="add_host") {
+    if($_POST['name']!="" && $_POST['description']!="" && $_POST['ip']!="") {
+        sql("INSERT INTO hosts (host_name, host_description, host_ip)
+        VALUES ('".db($_POST['name'])."','".db($_POST['description'])."','".db($_POST['ip'])."')");
+        $action_result = "<span style='color:limegreen'>Host added</span><br />";
+    }
+    else {
+        $action_result = "<span style='color:red'>Bad host parameters. Nothing done.</span><br />";
+    }
+
+}
 
 
 

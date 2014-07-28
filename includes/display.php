@@ -115,7 +115,9 @@ function getDashBoardContent() {
 				<br />';
 
 			}
-			//TODO: ADD A SENSOR
+            else {
+                $return.='<br>No sensors found for this host<br>';
+            }
 			$return .= '
 			<br />
 			<div class="add_sensor">
@@ -143,6 +145,33 @@ function getDashBoardContent() {
 				</form>
 			</div>
 			';
+
+            $return .= '
+            <br />
+			<div class="add_sensor">
+				<h6>Add a new host :</h6>
+				<form method="post" action="'.$_SERVER['REQUEST_URI'].'">
+					<table width="300px">
+					<tr>
+						<td>Name :</td>
+						<td><input type="text" name="name"></td>
+					</tr>
+					<tr>
+						<td>Description :</td>
+						<td><input type="text" name="description"></td>
+					</tr>
+					<tr>
+						<td>IP :</td>
+						<td><input type="text" name="ip"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" value="Add" ></td>
+					</tr>
+					</table>
+					<input type="hidden" name="action" value="add_host">
+				</form>
+			</div>
+            ';
             
 
             break;
