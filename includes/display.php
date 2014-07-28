@@ -235,6 +235,9 @@ function getGraph($sensor_id,$start,$stop,$div,$name) {
             legend: {
                 enabled: false
             },
+            rangeSelector: {
+	    	    enabled: true
+	        },
             plotOptions: {
                 area: {
                     fillColor: {
