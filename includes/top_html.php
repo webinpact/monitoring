@@ -4,6 +4,7 @@ echo '
 <!DOCTYPE html>
 <html>
     <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title>Outil de monitoring</title>
         <link rel="stylesheet" href="css/style.css" media="all" />
         <link href=\'http://fonts.googleapis.com/css?family=Droid+Sans\' rel=\'stylesheet\' type=\'text/css\'>

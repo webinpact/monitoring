@@ -176,6 +176,13 @@ function getDashBoardContent() {
 
             break;
         case 'settings':
+			$return .= '
+			TODO<br>
+			- Effacement des données les plus anciennes<br>
+			- Ligne en bleu à virer sur les graphs<br>
+			- Créer des templates de sensors, pour ajout plus rapide sur les nouveaux hosts<br>
+			- Créer des templates des graphs (couleurs)<br>
+			-';
             break;
         case 'graphs':
         default:
@@ -215,10 +222,6 @@ function getGraph($sensor_id,$start,$stop,$div,$name) {
         $max = max($max,$array['value']);
         $min = min($min,$array['value']);
     }
-
-    echo '<hr>';
-
-    echo $max."/".$min."<br/>";
 
 
     $max = $max+0.10*$max;
