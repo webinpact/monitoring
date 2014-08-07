@@ -26,8 +26,8 @@ elseif(!isset($_COOKIE['logged']) && !$_GET['do']=="login") {
 $action_result = "";
 if($_POST['action']=="add_sensor") {
 	if($_POST['name']!="" && $_POST['value']!="" && $_POST['type']!="" && $_POST['host_id']>0) {
-		sql("INSERT INTO hosts_sensors (host_id, sensor_type, sensor_value, sensor_name)
-		VALUES ('".(int)$_POST['host_id']."','".db($_POST['type'])."','".db($_POST['value'])."','".db($_POST['name'])."')");
+		sql("INSERT INTO hosts_sensors (host_id, sensor_type, sensor_value, sensor_name, sensor_max)
+		VALUES ('".(int)$_POST['host_id']."','".db($_POST['type'])."','".db($_POST['value'])."','".db($_POST['name'])."','".db($_POST['max'])."')");
 		$action_result = "<span style='color:limegreen'>Sensor added</span><br />";
 	}
 	else {
