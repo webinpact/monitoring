@@ -49,7 +49,7 @@ function getDashBoard() {
         </div>
         <div class="sideMenu">
             <h4>Hosts</h4>';
-    if(in_array($_GET['do'],array("graphs","alerts","hosts"))) {
+    if(!isset($_GET['do']) || in_array($_GET['do'],array("graphs","alerts","hosts"))) {
         foreach($hosts as $key=>$host) {
                $return .= '
                <a href="index.php?do='.$_GET['do'].'&host='.$host['host_id'].'">'.$host['host_name'].'</a><br />';
