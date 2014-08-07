@@ -10,7 +10,8 @@ echo '
         <link href=\'http://fonts.googleapis.com/css?family=Droid+Sans\' rel=\'stylesheet\' type=\'text/css\'>
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/js.js"></script>
-        <script type="text/javascript" src="js/highcharts.js"></script>
         <script type="text/javascript" src="js/exporting.js"></script>
+<script src="http://code.highcharts.com/stock/highcharts-more.js"></script>
+<script src="http://code.highcharts.com/stock/highstock.js"></script>
     </head>
     <body>';

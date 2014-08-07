@@ -207,25 +207,22 @@ function getGraph($sensor_id,$start,$stop,$div,$name) {
 
     $query = sql("SELECT * FROM poller_data
     WHERE sensor_id='".$sensor_id."'
-    AND log_date BETWEEN '".$start."' AND '".$stop."'
     ");
-    /*echo "SELECT * FROM poller_data
-    WHERE sensor_id='".$sensor_id."'
-    AND log_date BETWEEN '".$start."' AND '".$stop."'
-    ";*/
     $data = "";
-    $max = 0;
-    $min = 99999999999;
+
+    //enlevé car si on prend tout l'historique on peut avoir un max enorme qui aplati le graph a vie
+    //$max = 0;
+    //$min = 99999999999;
     while($array = mysql_fetch_array($query)) {
         $data.="
 [".strtotime($array['log_date'])."000, ".$array['value']."   ],";
-        $max = max($max,$array['value']);
-        $min = min($min,$array['value']);
+        //$max = max($max,$array['value']);
+        //$min = min($min,$array['value']);
     }
 
 
-    $max = $max+0.10*$max;
-    $min = $min-0.10*$min;
+    //$max = $max+0.10*$max;
+    //$min = $min-0.10*$min;
 
 
 
@@ -245,15 +242,33 @@ function getGraph($sensor_id,$start,$stop,$div,$name) {
             yAxis: {
                 title: {
                     text: '".$name."'
-                },
-                max: '".$max."',
-                min: '".$min."'
+                }
             },
             legend: {
                 enabled: false
             },
             rangeSelector: {
-	    	    enabled: true
+	    	    enabled: true,
+                buttons: [{
+                            type: 'hour',
+                            count: 1,
+                            text: '1h'
+                        }, {
+                            type: 'hour',
+                            count: 8,
+                            text: '8h'
+                        }, {
+                            type: 'day',
+                            count: 1,
+                            text: '1d'
+                        }, {
+                            type: 'day',
+                            count: 8,
+                            text: '1w'
+                        }, {
+                            type: 'all',
+                            text: 'All'
+                        }]
 	        },
             plotOptions: {
                 area: {
