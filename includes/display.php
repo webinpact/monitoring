@@ -210,19 +210,10 @@ function getGraph($sensor_id,$start,$stop,$div,$name) {
     ");
     $data = "";
 
-    //enlevé car si on prend tout l'historique on peut avoir un max enorme qui aplati le graph a vie
-    //$max = 0;
-    //$min = 99999999999;
     while($array = mysql_fetch_array($query)) {
         $data.="
 [".strtotime($array['log_date'])."000, ".$array['value']."   ],";
-        //$max = max($max,$array['value']);
-        //$min = min($min,$array['value']);
     }
-
-
-    //$max = $max+0.10*$max;
-    //$min = $min-0.10*$min;
 
 
 
@@ -272,31 +263,11 @@ function getGraph($sensor_id,$start,$stop,$div,$name) {
 	        },
             plotOptions: {
                 area: {
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, '#FF0000'],
-                            [1, '#FFFF00']
-                        ]
-                    },
-                    marker: {
-                        radius: 2
-                    },
-                    lineWidth: 1,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    },
+                    fillColor: '#ACFA58',
+                    lineWidth: 2,
                     threshold: null
                 }
             },
-
             series: [{
                 type: 'area',
                 name: '".$name."',
