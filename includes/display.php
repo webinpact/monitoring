@@ -137,6 +137,10 @@ function getDashBoardContent() {
 						<td><input type="text" name="value"></td>
 					</tr>
 					<tr>
+						<td>Max value (0=auto) :</td>
+						<td><input type="text" name="max" value="0"></td>
+					</tr>
+					<tr>
 						<td colspan="2"><input type="submit" value="Add" ></td>
 					</tr>
 					</table>
@@ -179,10 +183,11 @@ function getDashBoardContent() {
 			$return .= '
 			TODO<br>
 			- Effacement des données les plus anciennes<br>
-			- Ligne en bleu à virer sur les graphs<br>
 			- Créer des templates de sensors, pour ajout plus rapide sur les nouveaux hosts<br>
-			- Créer des templates des graphs (couleurs)<br>
-			-';
+			- Faire une seule barre pour le choix de la periode qui met à jour tous les graphs<br>
+			- Max du graph : avoir le choix entre auto (actuel), valeur fixe (disque)<br>
+			-<br>
+			-<br>';
             break;
         case 'graphs':
         default:
@@ -205,6 +210,7 @@ function getDashBoardContent() {
 //return javascript code to draw a graph
 function getGraph($sensor_id,$start,$stop,$div,$name) {
 
+    //Get Data
     $query = sql("SELECT * FROM poller_data
     WHERE sensor_id='".$sensor_id."'
     ");
@@ -216,6 +222,15 @@ function getGraph($sensor_id,$start,$stop,$div,$name) {
     }
 
 
+    //Get max value if defined
+    $max_value = "";
+    $query = sql("SELECT * FROM hosts_sensors
+    WHERE sensor_id='".$sensor_id."'
+    AND sensor_max>0");
+    if(mysql_num_rows($query)) {
+        $array = mysql_fetch_array($query);
+        $max_value = "max: '".$array['sensor_max']."'";
+    }
 
     $return .= "
     <script>
@@ -233,7 +248,8 @@ function getGraph($sensor_id,$start,$stop,$div,$name) {
             yAxis: {
                 title: {
                     text: '".$name."'
-                }
+                },
+                ".$max_value."
             },
             legend: {
                 enabled: false
