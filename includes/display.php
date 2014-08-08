@@ -186,6 +186,8 @@ function getDashBoardContent() {
 			- Créer des templates de sensors, pour ajout plus rapide sur les nouveaux hosts<br>
 			- Faire une seule barre pour le choix de la periode qui met à jour tous les graphs<br>
 			- Max du graph : avoir le choix entre auto (actuel), valeur fixe (disque)<br>
+			- mettre à jour le fichier sql de install avec sensor_max<br>
+            - enlever les valeurs de test dans poller_data<br>
 			-<br>
 			-<br>';
             break;
