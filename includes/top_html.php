@@ -6,12 +6,12 @@ echo '
     <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title>Outil de monitoring</title>
+        <link rel="icon" href="favicon.ico" />
         <link rel="stylesheet" href="css/style.css" media="all" />
         <link href=\'http://fonts.googleapis.com/css?family=Droid+Sans\' rel=\'stylesheet\' type=\'text/css\'>
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/js.js"></script>
         <script type="text/javascript" src="js/exporting.js"></script>
-<script src="http://code.highcharts.com/stock/highcharts-more.js"></script>
-<script src="http://code.highcharts.com/stock/highstock.js"></script>
+        <script type="text/javascript" src="js/highcharts.js"></script>
     </head>
     <body>';

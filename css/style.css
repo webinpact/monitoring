@@ -256,3 +256,31 @@ DASHBOARD
 .add_sensor h6 {
     font-size: 12px;
 }
+
+ul.rangeSelector {
+    display: inline;
+}
+
+ul.rangeSelector li {
+    display: inline;
+}
+
+ul.rangeSelector a {
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    border: 1px solid lightgray;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+ul.dateSelector {
+    list-style-type: none;
+    position: absolute;
+    right: 0px;
+    top: -22px;
+}
+
+.Selector {
+    position: relative;
+}

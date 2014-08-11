@@ -193,11 +193,49 @@ function getDashBoardContent() {
             break;
         case 'graphs':
         default:
+            if($_GET['range']) {
+                $delay = (int)substr($_GET['range'],0,1);
+                switch(substr($_GET['range'],-1)) {
+                    case 'l':
+                        $query = mysql_query("SELECT MIN( log_date ) AS log_date
+                                                FROM poller_data p
+                                                JOIN hosts_sensors h ON ( h.sensor_id = p.sensor_id
+                                                AND h.host_id =1 )");
+                        $array = mysql_fetch_array($query);
+                        $start = $array['log_date'];
+                        break;
+                    case 'h':
+                        $start = date("Y-m-d H:i:s",mktime(date("H")-$delay,date("i"),date("s"),date("m"),date("d"),date("Y")));
+                        break;
+                    case 'd':
+                    default:
+                        $start = date("Y-m-d H:i:s",mktime(date("H"),date("i"),date("s"),date("m"),date("d")-$delay,date("Y")));
+                        break;
+                }
+                $stop = date("Y-m-d H:i:s");
+            }
+            else {
+                $start = date("Y-m-d H:i:s",mktime(date("H"),date("i"),date("s"),date("m"),date("d")-2,date("Y")));
+                $stop = date("Y-m-d H:i:s");
+            }
             $host_infos = getHostInfos($host);
             $return .= '<h1>'.$host_infos['infos']['host_name'].'</h1>';
-            //Todo: Make it dynamic
-            $start = date("Y-m-d H:i:s",mktime(date("h"),date("i"),date("s"),date("m"),date("d")-2,date("Y")));
-            $stop = date("Y-m-d H:i:s");
+            //date selector
+            $return .= '
+            <div class="Selector">
+            <ul class="rangeSelector">
+                <li><a href="index.php?do=graphs&host='.$_GET['host'].'&range=8h">8h</a></li>
+                <li><a href="index.php?do=graphs&host='.$_GET['host'].'&range=1d">1d</a></li>
+                <li><a href="index.php?do=graphs&host='.$_GET['host'].'&range=3d">3d</a></li>
+                <li><a href="index.php?do=graphs&host='.$_GET['host'].'&range=all">All</a></li>
+            </ul>
+            <ul class="dateSelector">
+                <li>
+                    From <input type="text" value="'.$start.'" size="14">
+                    to <input type="text" value="'.$stop.'" size="14">
+                </li>
+            </ul>
+            </div>';
 
             foreach($host_infos['sensors'] as $key=>$sensor) {
                 $return .= '<div id="sensor'.$sensor['sensor_id'].'"></div><br />';
@@ -215,6 +253,7 @@ function getGraph($sensor_id,$start,$stop,$div,$name) {
     //Get Data
     $query = sql("SELECT * FROM poller_data
     WHERE sensor_id='".$sensor_id."'
+    AND log_date BETWEEN '".$start."' AND '".$stop."'
     ");
     $data = "";
 
@@ -256,29 +295,6 @@ function getGraph($sensor_id,$start,$stop,$div,$name) {
             legend: {
                 enabled: false
             },
-            rangeSelector: {
-	    	    enabled: true,
-                buttons: [{
-                            type: 'hour',
-                            count: 1,
-                            text: '1h'
-                        }, {
-                            type: 'hour',
-                            count: 8,
-                            text: '8h'
-                        }, {
-                            type: 'day',
-                            count: 1,
-                            text: '1d'
-                        }, {
-                            type: 'day',
-                            count: 8,
-                            text: '1w'
-                        }, {
-                            type: 'all',
-                            text: 'All'
-                        }]
-	        },
             plotOptions: {
                 area: {
                     fillColor: '#ACFA58',
