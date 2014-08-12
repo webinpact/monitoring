@@ -20,7 +20,7 @@ apt-get install phpmyadmin php5-snmp
 ```
 apt-get install snmpd
 ```
-
+Edit /etc/snmpd.conf to allow browsing of snmp from another host
 Snmp port must be reachable
 
 ####Server installation
