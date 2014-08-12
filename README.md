@@ -21,9 +21,9 @@ apt-get install phpmyadmin php5-snmp
 apt-get install snmpd
 ```
 
-####Server installation
-
 Snmp port must be reachable
+
+####Server installation
 
 * Unzip or svn checkout files in /var/www/monitoring on your server
 * mv config.sample.php config.php
