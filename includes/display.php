@@ -97,15 +97,33 @@ function getDashBoardContent() {
 					<th>Name</th>
 					<th>Type</th>
 					<th>Value</th>
+					<th>Max</th>
+					<th>Actions</th>
 				</tr>';
 
 				foreach($host_infos['sensors'] as $key=>$sensor) {
+
+                    $upLink = $downLink = "&nbsp;&nbsp;&nbsp;&nbsp;";
+                    if($key>0) $upLink = '<img src="images/up.png">';
+                    if($key<count($host_infos['sensors'])-1) $downLink='<img src="images/down.png">';
+
+
+
 
 					$return .='
 				<tr>
 					<td>'.$sensor['sensor_name'].'</td>
 					<td>'.$sensor['sensor_type'].'</td>
 					<td>'.$sensor['sensor_value'].'</td>
+					<td>'.($sensor['sensor_max']>0?$sensor['sensor_max']:'Auto').'</td>
+					<td>
+					    '.$upLink.'
+					    '.$downLink.'
+					    &nbsp;
+					    <img src="images/edit.png">
+					    &nbsp;
+					    <img src="images/delete.png">
+					</td>
 				</tr>';
 
 				}
@@ -174,7 +192,7 @@ function getDashBoardContent() {
 					</table>
 					<input type="hidden" name="action" value="add_host">
 				</form>
-			</div>
+			</div><br />
             ';
             
 
@@ -214,6 +232,10 @@ function getDashBoardContent() {
                 }
                 $stop = date("Y-m-d H:i:s");
             }
+            elseif($_POST['start'] && $_POST['stop']) {
+                $start = $_POST['start'];
+                $stop = $_POST['stop'];
+            }
             else {
                 $start = date("Y-m-d H:i:s",mktime(date("H"),date("i"),date("s"),date("m"),date("d")-2,date("Y")));
                 $stop = date("Y-m-d H:i:s");
@@ -231,8 +253,11 @@ function getDashBoardContent() {
             </ul>
             <ul class="dateSelector">
                 <li>
-                    From <input type="text" value="'.$start.'" size="14">
-                    to <input type="text" value="'.$stop.'" size="14">
+                    <form method="post" action="index.php?do=graphs&host='.$_GET['host'].'">
+                    From <input type="text" name="start" value="'.$start.'" size="14">
+                    to <input type="text" name="stop" value="'.$stop.'" size="14">
+                    <input type="submit" value="Update">
+                    </form>
                 </li>
             </ul>
             </div>';

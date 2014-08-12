@@ -250,11 +250,23 @@ DASHBOARD
 }
 
 .add_sensor {
-    width: 400px;
+    width: 450px;
 }
 
 .add_sensor h6 {
     font-size: 12px;
+}
+
+.add_sensor table {
+    border: 0px;
+    background: rgba(0,0,0,0.07);
+    border-radius: 10px;
+}
+.add_sensor tr {
+    border:0px;
+}
+.add_sensor td {
+    border:0px;
 }
 
 ul.rangeSelector {
