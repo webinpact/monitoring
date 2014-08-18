@@ -9,10 +9,20 @@
 //check login/pass filled by user, put cookies if ok, redirect to main page
 function doLogin() {
 
+    if($_POST['login']==WEB_LOGIN && $_POST['password']==WEB_PASSWORD) {
+        setcookie("logged", 1, time()+3600);
+        header("Location: index.php?do=graphs");
+    }
+    else {
+        header("Location: index.php?do=login&error=1");
+    }
 
-    setcookie("logged", 1, time()+3600);
+}
+
+//logout user
+function doLogout() {
+    setcookie("logged", 0, time());
     header("Location: index.php");
-
 }
 
 //return an array with the list of hosts created in database

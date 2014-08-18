@@ -18,9 +18,13 @@ include "includes/database.php";
 if($_POST['do']=="login_valid") {
     doLogin();
 }
-elseif(!isset($_COOKIE['logged']) && !$_GET['do']=="login") {
+elseif($_GET['do']=="logout") {
+    doLogout();
+}
+elseif(!isset($_COOKIE['logged']) && $_GET['do']!="login") {
     header("Location: index.php?do=login");
 }
+
 
 //Action needed ?
 $action_result = "";

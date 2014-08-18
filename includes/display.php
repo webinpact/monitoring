@@ -7,14 +7,20 @@
 
 function getLoginForm() {
 
+    $error = "";
+    if($_GET['error']) {
+        $error = "<span style='color:red'>Bad Login</span>";
+    }
+
     return '
     <div class="loginForm">
         <div class="loginTitle">Please log in :</div>
         <br />
-        <form name="login" method="post" action="index.php">
+        <form name="login" method="post" action="index.php" onkeyup="if(enter_pressed()) loginFormSubmit();">
+        '.$error.'
         <table>
         <tr><td>Login :</td><td><input type="text" name="login"></td></tr>
-        <tr><td>Password :</td><td><input type="text" name="password"></td></tr>
+        <tr><td>Password :</td><td><input type="password" name="password"></td></tr>
         <tr><td colspan="2">'.getButton("Login","#","onclick='loginFormSubmit();'").'</td></tr>
         </table>
         <input type="hidden" name="do" value="login_valid">
@@ -59,14 +65,13 @@ function getDashBoard() {
     $return .= '
         </div>
         <div class="mainContent">
-            <h4 class="'.$_GET['do'].'">'.ucfirst($_GET['do']).'</h4>
+            <h4 class="'.($_GET['do']?$_GET['do']:'graphs').'">'.ucfirst(($_GET['do']?$_GET['do']:'graphs')).'</h4>
 			'.$action_result.'
             '.getDashBoardContent().'
         </div>
     </div>';
 
     return $return;
-
 }
 
 function getDashBoardContent() {
@@ -104,8 +109,12 @@ function getDashBoardContent() {
 				foreach($host_infos['sensors'] as $key=>$sensor) {
 
                     $upLink = $downLink = "&nbsp;&nbsp;&nbsp;&nbsp;";
-                    if($key>0) $upLink = '<img src="images/up.png">';
-                    if($key<count($host_infos['sensors'])-1) $downLink='<img src="images/down.png">';
+                    if($key>0) {
+                        $upLink = '<a href="index.php"><img src="images/up.png"></a>';
+                    }
+                    if($key<count($host_infos['sensors'])-1) {
+                        $downLink='<a href=""><img src="images/down.png"></a>';
+                    }
 
 
 
@@ -202,10 +211,9 @@ function getDashBoardContent() {
 			TODO<br>
 			- Effacement des données les plus anciennes<br>
 			- Créer des templates de sensors, pour ajout plus rapide sur les nouveaux hosts<br>
-			- Faire une seule barre pour le choix de la periode qui met à jour tous les graphs<br>
-			- Max du graph : avoir le choix entre auto (actuel), valeur fixe (disque)<br>
-			- mettre à jour le fichier sql de install avec sensor_max<br>
+			- mettre à jour le fichier sql de install avec sensor_max et sensor_order<br>
             - enlever les valeurs de test dans poller_data<br>
+            - faire marcher les boutons actions<br>
 			-<br>
 			-<br>';
             break;
