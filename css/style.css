@@ -216,6 +216,10 @@ DASHBOARD
     color:slategrey;
 }
 
+.mainContent a {
+    text-decoration: none;
+}
+
 .mainContent h1 {
     color: grey;
     font-weight: bold;

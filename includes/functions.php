@@ -54,3 +54,26 @@ function getHostInfos($host_id) {
 
     return $host_infos;
 }
+
+function getSensorOrder($sensor) {
+    $query = sql("SELECT sensor_order FROM hosts_sensors WHERE sensor_id='".(int)$sensor."'");
+    if(mysql_num_rows($query)) {
+        $array = mysql_fetch_array($query);
+        return $array['sensor_order'];
+    }
+    else {
+        return false;
+    }
+}
+
+function getSensorByOrder($host,$order) {
+    $query = sql("SELECT sensor_id FROM hosts_sensors WHERE host_id='".(int)$host."' AND sensor_order='".(int)$order."'");
+    if(mysql_num_rows($query)) {
+        $array = mysql_fetch_array($query);
+        return $array['sensor_id'];
+    }
+    else {
+        echo "SELECT sensor_id FROM hosts_sensors WHERE host_id='".(int)$host."' AND sensor_order='".(int)$order."'";
+        return false;
+    }
+}

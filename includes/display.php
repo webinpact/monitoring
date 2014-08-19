@@ -110,10 +110,14 @@ function getDashBoardContent() {
 
                     $upLink = $downLink = "&nbsp;&nbsp;&nbsp;&nbsp;";
                     if($key>0) {
-                        $upLink = '<a href="index.php"><img src="images/up.png"></a>';
+                        $upLink = '<a href="index.php?do=hosts&action=up&host='.$host['host_id'].'&sensor='.$sensor['sensor_id'].'">
+                                    <img src="images/up.png">
+                                   </a>';
                     }
                     if($key<count($host_infos['sensors'])-1) {
-                        $downLink='<a href=""><img src="images/down.png"></a>';
+                        $downLink='<a href="index.php?do=hosts&action=down&host='.$host['host_id'].'&sensor='.$sensor['sensor_id'].'">
+                                    <img src="images/down.png">
+                                   </a>';
                     }
 
 
@@ -223,7 +227,7 @@ function getDashBoardContent() {
                 $delay = (int)substr($_GET['range'],0,1);
                 switch(substr($_GET['range'],-1)) {
                     case 'l':
-                        $query = mysql_query("SELECT MIN( log_date ) AS log_date
+                        $query = sql("SELECT MIN( log_date ) AS log_date
                                                 FROM poller_data p
                                                 JOIN hosts_sensors h ON ( h.sensor_id = p.sensor_id
                                                 AND h.host_id =1 )");
@@ -310,6 +314,10 @@ function getGraph($sensor_id,$start,$stop,$div,$name) {
     <script>
     $(function () {
         $('#".$div."').highcharts({
+            global: {
+                timezoneOffset: 600,
+                useUTC: false
+            },
             chart: {
                 zoomType: 'x'
             },

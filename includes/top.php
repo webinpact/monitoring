@@ -50,6 +50,32 @@ elseif($_POST['action']=="add_host") {
     }
 
 }
+elseif( ($_GET['action']=="up" || $_GET['action']=="down")
+    && $_GET['do']=="hosts" && $_GET['host'] && $_GET['sensor']) {
+
+    $sensor_order = getSensorOrder($_GET['sensor']);
+
+    if($_GET['action']=="up") {
+        $new_order = $sensor_order-1;
+    }
+    else {
+        $new_order = $sensor_order+1;
+    }
+
+    $other_sensor = getSensorByOrder($_GET['host'],$new_order);
+
+    if($sensor_order && $other_sensor) {
+        sql("UPDATE hosts_sensors SET sensor_order='".$sensor_order."' wHERE sensor_id='".$other_sensor."'");
+        sql("UPDATE hosts_sensors SET sensor_order='".$new_order."' WHERE sensor_id='".$_GET['sensor']."'");
+    }
+    else {
+        echo $new_order . " / " . $sensor_order . " / " . $other_sensor."<br>";
+        die("error");
+    }
+
+    header("Location: index.php?do=hosts&host=".$_GET['host']);
+
+}
 
 
 
